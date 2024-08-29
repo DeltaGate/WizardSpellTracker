@@ -7,6 +7,9 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-
+        <ListBox x:Name="unpreparedSpells" Margin="494,64,72,95" SelectionChanged="ListBox_SelectionChanged"/>
+        <ListBox x:Name="preparedSpells" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="72,64,494,95"/>
+        <Button x:Name="prepareBtn" Content="Prepare Spell" HorizontalAlignment="Left" Margin="574,364,0,0" VerticalAlignment="Top" Click="prepareBtn_Click"/>
+        <Button x:Name="forgetBtn" Content="Forget Spell" HorizontalAlignment="Left" Margin="152,364,0,0" VerticalAlignment="Top" Click="forgetBtn_Click"/>
     </Grid>
 </Window>
