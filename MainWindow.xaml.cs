@@ -36,7 +36,7 @@ namespace WizardSpellTracker
 
 
 
-        private void prepareBtn_Click(object sender, RoutedEventArgs e)
+        private void prepareBtn_Click(object sender, RoutedEventArgs e) //Moves unprepared spells to prepared list and DB
         {
             int level = levelSelect.SelectedIndex + 1;
             
@@ -55,7 +55,7 @@ namespace WizardSpellTracker
 
 
 
-        private void forgetBtn_Click(object sender, RoutedEventArgs e)
+        private void forgetBtn_Click(object sender, RoutedEventArgs e) //Moves prepared spells to unprepared list and DB
         {
             var name = preparedSpells.SelectedItem as string;
             unpreparedSpells.Items.Add(preparedSpells.SelectedItem);
@@ -66,7 +66,7 @@ namespace WizardSpellTracker
 
 
 
-        private void learnSpellBtn_Click(object sender, RoutedEventArgs e)
+        private void learnSpellBtn_Click(object sender, RoutedEventArgs e) //learn spell based on user input
         {
             string scrySpell = learnSpellTxtBox.Text;
             learnSpellTxtBox.Text = "";
@@ -98,7 +98,7 @@ namespace WizardSpellTracker
 
 
 
-
+        //Another Display Spell Infomation request, this can deffo be combined
         private void preparedSpellInfoBtn_Click(object sender, RoutedEventArgs e) 
         {
             SpellDetails spellDetails = new SpellDetails(preparedSpells.SelectedItem as string);

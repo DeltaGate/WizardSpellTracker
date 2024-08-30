@@ -80,6 +80,7 @@ Add spell slots based on game rules. Will need to improve database to accomidate
 Change level allowed slots to match game rules, its currently just based on player level which isn't exactly right.#
 
 Known Issues:
+
 The database check for already known spells fails to account for strings with capitilsed second words.
 
 
