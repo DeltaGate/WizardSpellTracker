@@ -7,11 +7,31 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        <ListBox x:Name="unpreparedSpells" Margin="494,64,72,95"/>
-        <ListBox x:Name="preparedSpells" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="72,64,494,95"/>
-        <Button x:Name="prepareBtn" Content="Prepare Spell" HorizontalAlignment="Left" Margin="574,364,0,0" VerticalAlignment="Top" Click="prepareBtn_Click"/>
-        <Button x:Name="forgetBtn" Content="Forget Spell" HorizontalAlignment="Left" Margin="152,364,0,0" VerticalAlignment="Top" Click="forgetBtn_Click"/>
+        <ListBox x:Name="unpreparedSpells" Margin="494,64,72,95" FontFamily="Avalon Quest" FontSize="18"/>
+        <ListBox x:Name="preparedSpells" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="72,64,494,95" FontFamily="Avalon Quest" FontSize="18"/>
+        <Button x:Name="prepareBtn" Content="Prepare Spell" HorizontalAlignment="Left" Margin="574,347,0,0" VerticalAlignment="Top" Click="prepareBtn_Click"/>
+        <Button x:Name="forgetBtn" Content="Forget Spell" HorizontalAlignment="Left" Margin="152,347,0,0" VerticalAlignment="Top" Click="forgetBtn_Click"/>
         <TextBox x:Name="learnSpellTxtBox" HorizontalAlignment="Center" Margin="0,25,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
         <Button x:Name="learnSpellBtn" Content="Learn Spell" HorizontalAlignment="Center" Margin="0,64,0,0" VerticalAlignment="Top" Click="learnSpellBtn_Click"/>
+        <Button x:Name="preparedSpellInfoBtn" Content="Spell Info" HorizontalAlignment="Left" Margin="159,387,0,0" VerticalAlignment="Top" Click="preparedSpellInfoBtn_Click"/>
+        <Button x:Name="unprepearedSpellInfoBtn" Content="Spell Info" HorizontalAlignment="Left" Margin="584,387,0,0" VerticalAlignment="Top" Click="unprepearedSpellInfoBtn_Click"/>
+        <ComboBox x:Name="levelSelect" HorizontalAlignment="Center" Margin="0,217,0,0" VerticalAlignment="Top" Width="61" SelectedIndex="5" FontFamily="Avalon Quest" FontSize="16" SelectedValuePath="Content">
+            <ComboBoxItem Content="1"/>
+            <ComboBoxItem Content="2"/>
+            <ComboBoxItem Content="3"/>
+            <ComboBoxItem Content="4"/>
+            <ComboBoxItem Content="5"/>
+            <ComboBoxItem Content="6"/>
+            <ComboBoxItem Content="7"/>
+            <ComboBoxItem Content="8"/>
+            <ComboBoxItem Content="9"/>
+            <ComboBoxItem Content="10"/>
+            <ComboBoxItem Content="11"/>
+            <ComboBoxItem Content="12"/>
+            <ComboBoxItem Content="13"/>
+        </ComboBox>
+        <Label x:Name="onScreenLabel" Content="Choose your Level" HorizontalAlignment="Center" Margin="0,180,0,0" VerticalAlignment="Top" FontFamily="Avalon Quest" FontSize="18"/>
+        <Label x:Name="prepedSpellLabel" Content="Prepared Spells For The Day" HorizontalAlignment="Left" Margin="64,18,0,0" VerticalAlignment="Top" FontSize="18" FontFamily="Avalon Quest"/>
+        <Label Content="Unprepared Spells" HorizontalAlignment="Left" Margin="532,18,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.276,-0.425" FontSize="18" FontFamily="Avalon Quest"/>
     </Grid>
 </Window>

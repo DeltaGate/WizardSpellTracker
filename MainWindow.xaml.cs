@@ -12,11 +12,14 @@ using System.Xml.Linq;
 using Microsoft.Data.Sqlite;
 using System.Diagnostics;
 using System.Net.Http;
+using System.Text.RegularExpressions;
 
 namespace WizardSpellTracker
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// main login for front end controls.
+    /// any Database related tasks are housed in DBControl
+    /// any object prep for spell retrieval via 5e API is done via DBControl & SpellResponse OBJ
     /// </summary>
     public partial class MainWindow : Window
     {
@@ -37,9 +40,11 @@ namespace WizardSpellTracker
 
         private void prepareBtn_Click(object sender, RoutedEventArgs e)
         {
+            int level = levelSelect.SelectedIndex + 1; 
+            if(preparedSpells.Items.Count > level) { MessageBox.Show("Whooooo there, too many spells today young wizard, slow down"); return; }
             var name = unpreparedSpells.SelectedItem as string;
             preparedSpells.Items.Add(unpreparedSpells.SelectedItem);
-            dbControl.loadSpellPrepared(name);
+            dbControl.moveSpellToPrepared(name);
             unpreparedSpells.Items.Remove(unpreparedSpells.SelectedItem);
 
         }
@@ -48,17 +53,40 @@ namespace WizardSpellTracker
         {
             var name = preparedSpells.SelectedItem as string;
             unpreparedSpells.Items.Add(preparedSpells.SelectedItem);
-            dbControl.loadSpellUnprepared(name);
+            dbControl.moveSpellToUnprepared(name);
             preparedSpells.Items.Remove(preparedSpells.SelectedItem);
         }
 
         private void learnSpellBtn_Click(object sender, RoutedEventArgs e)
         {
             string scrySpell = learnSpellTxtBox.Text;
-            Trace.WriteLine(scrySpell);
-            dbControl.apiGet(scrySpell);
-            dbControl.loadSpellsFromDB(unpreparedSpells, preparedSpells);
+            learnSpellTxtBox.Text = "";
+            if (scrySpell == "" || scrySpell.StartsWith(" ")) //check for valid input
+            {
+                return;
+            }
+            scrySpell = scrySpell.Replace(" ", "-"); // correct formatting
+            if (dbControl.alreadyKnownSpell(scrySpell)) 
+            {
+                dbControl.apiGet(scrySpell);
+                dbControl.loadSpellsFromDB(unpreparedSpells, preparedSpells);
+            }
 
+
+        }
+
+        private void unprepearedSpellInfoBtn_Click(object sender, RoutedEventArgs e)
+        {
+            SpellDetails spellDetails = new SpellDetails(unpreparedSpells.SelectedItem as string);
+            spellDetails.Show();
+            dbControl.readDBSpell(unpreparedSpells.SelectedItem as string, spellDetails.SpellInfo, "unprepared");
+        }
+
+        private void preparedSpellInfoBtn_Click(object sender, RoutedEventArgs e)
+        {
+            SpellDetails spellDetails = new SpellDetails(preparedSpells.SelectedItem as string);
+            spellDetails.Show();
+            dbControl.readDBSpell(preparedSpells.SelectedItem as string, spellDetails.SpellInfo, "prepared");
         }
     }
 }
