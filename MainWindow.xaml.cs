@@ -30,24 +30,30 @@ namespace WizardSpellTracker
             InitializeComponent();
 
             dbControl.connectToDb(); // Inital Connection to DB
-
             dbControl.loadSpellsFromDB(unpreparedSpells, preparedSpells); // Inital Load of spell names
-
-            Trace.WriteLine("testing123");
         }
+
 
 
 
         private void prepareBtn_Click(object sender, RoutedEventArgs e)
         {
-            int level = levelSelect.SelectedIndex + 1; 
-            if(preparedSpells.Items.Count > level) { MessageBox.Show("Whooooo there, too many spells today young wizard, slow down"); return; }
+            int level = levelSelect.SelectedIndex + 1;
+            
+            if(preparedSpells.Items.Count > level) { 
+                MessageBox.Show("Whooooo there, too many spells today young wizard, slow down"); 
+                return; 
+            }
+
             var name = unpreparedSpells.SelectedItem as string;
             preparedSpells.Items.Add(unpreparedSpells.SelectedItem);
             dbControl.moveSpellToPrepared(name);
             unpreparedSpells.Items.Remove(unpreparedSpells.SelectedItem);
 
         }
+
+
+
 
         private void forgetBtn_Click(object sender, RoutedEventArgs e)
         {
@@ -57,32 +63,43 @@ namespace WizardSpellTracker
             preparedSpells.Items.Remove(preparedSpells.SelectedItem);
         }
 
+
+
+
         private void learnSpellBtn_Click(object sender, RoutedEventArgs e)
         {
             string scrySpell = learnSpellTxtBox.Text;
             learnSpellTxtBox.Text = "";
+
             if (scrySpell == "" || scrySpell.StartsWith(" ")) //check for valid input
             {
                 return;
             }
+
             scrySpell = scrySpell.Replace(" ", "-"); // correct formatting
+
             if (dbControl.alreadyKnownSpell(scrySpell)) 
             {
                 dbControl.apiGet(scrySpell);
                 dbControl.loadSpellsFromDB(unpreparedSpells, preparedSpells);
             }
 
-
         }
 
-        private void unprepearedSpellInfoBtn_Click(object sender, RoutedEventArgs e)
+
+
+        //Display Spell Infomation
+        private void unprepearedSpellInfoBtn_Click(object sender, RoutedEventArgs e) 
         {
             SpellDetails spellDetails = new SpellDetails(unpreparedSpells.SelectedItem as string);
             spellDetails.Show();
             dbControl.readDBSpell(unpreparedSpells.SelectedItem as string, spellDetails.SpellInfo, "unprepared");
         }
 
-        private void preparedSpellInfoBtn_Click(object sender, RoutedEventArgs e)
+
+
+
+        private void preparedSpellInfoBtn_Click(object sender, RoutedEventArgs e) 
         {
             SpellDetails spellDetails = new SpellDetails(preparedSpells.SelectedItem as string);
             spellDetails.Show();

@@ -77,4 +77,12 @@ Improvments for future:
 
 Spell infomation needs to be displayed in a better format. will need to look into what other ways WPF offers to display data.
 Add spell slots based on game rules. Will need to improve database to accomidate. 
-Change level allowed slots to match game rules, its currently just based on player level which isn't exactly right.
+Change level allowed slots to match game rules, its currently just based on player level which isn't exactly right.#
+
+Known Issues:
+The database check for already known spells fails to account for strings with capitilsed second words.
+
+
+
+If you want to run this yourself from my repo, you'll need to make sure that you assign your "dbLocation" to whatever folder you've downloaded the repo to, "dbLocation" 
+can be found in the DBControl class at the top. 

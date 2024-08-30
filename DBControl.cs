@@ -17,11 +17,13 @@ namespace WizardSpellTracker
 {
     class DBControl
     {
+
+
+
+
         private static string dbLocation = "data source=C:\\Users\\Connor\\Desktop\\coding 2024\\c# interview work\\WizardSpellTracker\\Spells.db"; //db location;
 
         private SqliteConnection connection;
-
-
 
 
 
@@ -32,7 +34,6 @@ namespace WizardSpellTracker
             connection = new SqliteConnection(dbLocation); // create object with location of db
             connection.Open(); //open connection
         }
-
 
 
 
@@ -51,28 +52,22 @@ namespace WizardSpellTracker
             }
 
             var readDB = new SqliteCommand("SELECT name FROM unprepared", connection);
-
             var reader = readDB.ExecuteReader();
             {
                 while (reader.Read())
                 {
                     string name = reader.GetString(0);
-                    Trace.WriteLine(name);
-
                     unpreparedSpells.Items.Add(name);
 
                 }
             }
 
             readDB = new SqliteCommand("SELECT name FROM prepared", connection);
-
             reader = readDB.ExecuteReader();
             {
                 while (reader.Read())
                 {
                     string name = reader.GetString(0);
-                    Trace.WriteLine(name);
-
                     preparedSpells.Items.Add(name);
 
                 }
@@ -82,6 +77,8 @@ namespace WizardSpellTracker
 
 
 
+
+        //Moving spells between DB's & thus states
         public void moveSpellToPrepared(string name)
         {
             var moveToPrepared = new SqliteCommand("INSERT INTO prepared SELECT * FROM unprepared WHERE name = " + "'" + name + "'" + ";", connection);
@@ -98,16 +95,15 @@ namespace WizardSpellTracker
             var deleteCurrent = new SqliteCommand("DELETE FROM prepared WHERE name =" + "'" + name + "'" + ";", connection);
             deleteCurrent.ExecuteNonQuery();
         }
+        //Finished Moving spells
 
 
 
 
 
-
-        public void readDBSpell(string name, ListView housing, string preped) //query unprepared db for spell info
+        public void readDBSpell(string name, ListView housing, string preped) //query db for spell info (preped varible houses table name)
         {
             var readDB = new SqliteCommand("SELECT * FROM " + preped + " WHERE name = '" + name + "';", connection);
-
             var reader = readDB.ExecuteReader();
 
             while (reader.Read())  // read requsted db entry
@@ -127,15 +123,11 @@ namespace WizardSpellTracker
                         stackPanel.Children.Add(new TextBlock { Text=fieldData});
 
                         item.Content = stackPanel;
-
                         housing.Items.Add(item);       //wacky but it works, Need to investigate best ways to display data in wpf and rebuild
 
 
                     }
-
                 }
-
-
             }
         }
 
@@ -147,12 +139,10 @@ namespace WizardSpellTracker
             var checkExists = new SqliteCommand("SELECT name FROM unprepared WHERE name = '" + char.ToUpper(scrySpell[0]) + scrySpell.Substring(1) + "' ;", connection);
             var checkReader = checkExists.ExecuteReader();
 
-
             while (checkReader.Read())
             {
-                Trace.WriteLine("trace3");
-
                 string test = checkReader.GetString(0);
+
                 Trace.WriteLine(test);
                 Trace.WriteLine(scrySpell);
 
@@ -164,9 +154,8 @@ namespace WizardSpellTracker
 
             while (checkReader.Read())
             {
-                Trace.WriteLine("trace3");
-
                 string test = checkReader.GetString(0);
+
                 Trace.WriteLine(test);
                 Trace.WriteLine(scrySpell);
 
@@ -241,10 +230,6 @@ namespace WizardSpellTracker
                     addToDB.ExecuteNonQuery();
                 }
             }
-
-
         }
-
-
     }
 }
