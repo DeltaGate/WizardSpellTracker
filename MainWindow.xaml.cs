@@ -11,6 +11,7 @@ using System.Windows.Shapes;
 using System.Xml.Linq;
 using Microsoft.Data.Sqlite;
 using System.Diagnostics;
+using System.Net.Http;
 
 namespace WizardSpellTracker
 {
@@ -27,15 +28,12 @@ namespace WizardSpellTracker
 
             dbControl.connectToDb(); // Inital Connection to DB
 
-            dbControl.loadSpellsFromDB(unpreparedSpells); // Inital Load of spell names
+            dbControl.loadSpellsFromDB(unpreparedSpells, preparedSpells); // Inital Load of spell names
 
             Trace.WriteLine("testing123");
         }
 
-        private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
 
-        }
 
         private void prepareBtn_Click(object sender, RoutedEventArgs e)
         {
@@ -52,6 +50,15 @@ namespace WizardSpellTracker
             unpreparedSpells.Items.Add(preparedSpells.SelectedItem);
             dbControl.loadSpellUnprepared(name);
             preparedSpells.Items.Remove(preparedSpells.SelectedItem);
+        }
+
+        private void learnSpellBtn_Click(object sender, RoutedEventArgs e)
+        {
+            string scrySpell = learnSpellTxtBox.Text;
+            Trace.WriteLine(scrySpell);
+            dbControl.apiGet(scrySpell);
+            dbControl.loadSpellsFromDB(unpreparedSpells, preparedSpells);
+
         }
     }
 }

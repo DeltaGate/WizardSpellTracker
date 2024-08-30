@@ -47,7 +47,8 @@ Day 2 -
 
 Completed work on SpellResponse Object, Database & SQL insert statements. Confirmed functional with spell inputs for "Fireball", "Blur", "Acid-Arrow".
 All data is now accounted for from the Json response into the local SpellResponse object called "arcaneKnoweldge", this then is transfered into the DB by
-1 of 2 SQL statements, determined based on if a subclass of the SpellResponse Object is in use. Now moving onto WPF front end.
+1 of 2 SQL statements, determined based on if a subclass of the SpellResponse Object is in use. Begin work on WPF front end, testbed functionality now avalible
+through GUI. User can now search for spells not know as well as update which Database table a spell should be in via graphical tables.
 
 
 
